@@ -1,0 +1,1 @@
+Public GitHub Repository: https://github.com/cyarare12/django-news-app-capstone
