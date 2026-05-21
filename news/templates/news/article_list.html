@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Articles</title>
+</head>
+<body>
+    <h1>Articles</h1>
+    {% if user.is_authenticated %}
+        <p>Welcome, {{ user.username }} ({{ user.role }}) |
+        <form method="post" action="{% url 'logout' %}" style="display: inline;">
+            {% csrf_token %}
+            <button type="submit" style="border: none; background: none; color: blue; text-decoration: underline; cursor: pointer;">Logout</button>
+        </form>
+        </p>
+    {% else %}
+        <p><a href="{% url 'login' %}">Login</a></p>
+    {% endif %}
+    {% if user.role == 'editor' %}
+        <h2>Unapproved Articles</h2>
+    {% elif user.role == 'journalist' %}
+        <h2>All Articles</h2>
+        <a href="{% url 'create_publisher' %}">Create Publisher</a> |
+        <a href="{% url 'create_article' %}">Create Article</a> |
+        <a href="{% url 'create_newsletter' %}">Create Newsletter</a>
+    {% else %}
+        <h2>Approved Articles</h2>
+    {% endif %}
+    <ul>
+        {% for article in articles %}
+            <li>
+                <h3>{{ article.title }}</h3>
+                <p>{{ article.content }}</p>
+                <p>Author: {{ article.author.username }}</p>
+                {% if user.role == 'editor' and not article.approved %}
+                    <a href="{% url 'approve_article' article.id %}">Approve</a>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

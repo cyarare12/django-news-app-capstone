@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Approve Article</title>
+</head>
+<body>
+    <h1>Approve Article</h1>
+    <h2>{{ article.title }}</h2>
+    <p>{{ article.content }}</p>
+    <p>Author: {{ article.author.username }}</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Approve</button>
+    </form>
+    <a href="{% url 'article_list' %}">Back to List</a>
+</body>
+</html>
