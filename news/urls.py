@@ -1,3 +1,10 @@
+"""
+URL patterns for the news application.
+
+This module defines the URL routing for the news app, mapping URLs to
+view functions and class-based views for articles, newsletters, and publishers.
+"""
+
 from django.urls import path
 from . import views
 
